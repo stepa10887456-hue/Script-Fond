@@ -1,0 +1,818 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+
+local Window = Rayfield:CreateWindow({
+ Name = "Petey Hub",
+ Icon = 128669381280559, -- Icon in Topbar. Можно использовать иконки Lucide (строка) или изображения Roblox (число). 0 — без иконки (по умолчанию).
+ LoadingTitle = "Petey Hub",
+ LoadingSubtitle = "by Petey",
+ Theme = "Default", -- См. https://docs.sirius.menu/rayfield/configuration/themes
+
+ DisableRayfieldPrompts = false,
+ DisableBuildWarnings = false, -- Предотвращает появление предупреждений Rayfield, когда версия скрипта не совпадает с версией интерфейса
+
+ ConfigurationSaving = {
+ Enabled = true,
+ FolderName = nil, -- Создайте пользовательскую папку для вашего хаба/игры
+ FileName = "Big Hub"
+ },
+
+ Discord = {
+ Enabled = false, -- Предложите пользователю присоединиться к вашему серверу Discord, если его исполнитель поддерживает эту функцию
+ Invite = "https://discord.gg/utmzdFDMW3", -- Код приглашения в Discord, не включайте discord.gg/. Например, discord.gg/ ABCD будет выглядеть как ABCD
+ RememberJoins = true -- Установите значение false, чтобы пользователи присоединялись к Discord при каждом запуске приложения
+ },
+
+ KeySystem = false, -- Установите значение true, чтобы использовать нашу систему ключей
+ KeySettings = {
+ Title = "Petey Hub",
+ Subtitle = "Key System",
+ Note = "To get key join discord: https://discord.gg/utmzdFDMW3", -- Используйте это, чтобы сообщить пользователю, как получить ключ
+ FileName = "Keyz", -- Рекомендуется использовать что-то уникальное, так как другие скрипты, использующие Rayfield, могут перезаписать ваш файл с ключом
+ SaveKey = true, -- Ключ пользователя будет сохранен, но если вы измените ключ, пользователь не сможет использовать ваш скрипт
+ GrabKeyFromSite = false, -- Если это так, укажите ниже ключ сайта RAW, с которого Rayfield должен получить ключ
+ Key = {"P3teY"} -- Список ключей, которые будут приняты системой, могут быть ссылками на файлы в формате RAW (pastebin, github и т. д.) или простыми строками ("hello","key22")
+ }
+})
+
+local Tab = Window:CreateTab("Character") -- Заголовок, изображение
+local Section = Tab:CreateSection("Player")
+
+local Button = Tab:CreateButton({
+ Name = "Fullbright",
+ Callback = function()
+ if not _G.FullBrightExecuted then
+
+ _G.FullBrightEnabled = false
+
+ _G.NormalLightingSettings = {
+ Brightness = game:GetService("Lighting").Яркость,
+ ClockTime = game:GetService("Lighting").ClockTime,
+ FogEnd = game:GetService("Lighting").Туманный конец,
+ GlobalShadows = game:GetService("Освещение").GlobalShadows,
+ Ambient = game:GetService("Lighting").Окружающий
+ }
+
+ game:GetService("Lighting"):GetPropertyChangedSignal("Brightness"):Connect(function()
+ if game:GetService("Lighting").Яркость ~= 1 и game:GetService("Освещение").Brightness ~= _G.NormalLightingSettings.Brightness then
+ _G.NormalLightingSettings.Brightness = game:GetService("Lighting").Яркость
+ if not _G.FullBrightEnabled then
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ end
+ game:GetService("Lighting").Яркость = 1
+ конец
+ конец)
+
+ game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(function()
+ if game:GetService("Lighting").ClockTime ~= 12 и game:GetService("Lighting").ClockTime ~= _G.NormalLightingSettings.ClockTime then
+ _G.NormalLightingSettings.ClockTime = game:GetService("Lighting").ClockTime
+ if not _G.FullBrightEnabled then
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ end
+ game:GetService("Lighting").ClockTime = 12
+ end
+ end)
+
+ game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
+ если игра: GetService («Освещение»).FogEnd ~= 786543 и game:GetService("Освещение").FogEnd ~= _G.NormalLightingSettings.FogEnd then
+ _G.NormalLightingSettings.FogEnd = game:GetService("Lighting").FogEnd
+ if not _G.FullBrightEnabled then
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ end
+ game:GetService("Lighting").FogEnd = 786543
+ end
+ end)
+
+ game:GetService("Lighting"):GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+ if game:GetService("Lighting").GlobalShadows ~= false и game:GetService("Освещение").GlobalShadows ~= _G.NormalLightingSettings.GlobalShadows then
+ _G.NormalLightingSettings.GlobalShadows = game:GetService("Lighting").GlobalShadows
+ if not _G.FullBrightEnabled then
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ end
+ game:GetService("Lighting").GlobalShadows = false
+ end
+ end)
+
+ game:GetService("Lighting"):GetPropertyChangedSignal("Ambient"):Connect(function()
+ if game:GetService("Lighting").Ambient ~= Color3.fromRGB(178, 178, 178) и game:GetService("Lighting").Ambient ~= _G.NormalLightingSettings.Ambient then
+ _G.NormalLightingSettings.Ambient = game:GetService("Lighting").Окружающий
+ if not _G.FullBrightEnabled then
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ end
+ game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+ end
+ end)
+
+ game:GetService("Lighting").Яркость = 1
+ game:GetService("Освещение").ClockTime = 12
+ game:GetService("Lighting").FogEnd = 786543
+ game:GetService("Lighting").GlobalShadows = false
+ game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+
+ local LatestValue = true
+ spawn(function()
+ repeat
+ wait()
+ until _G.FullBrightEnabled
+ while wait() do
+ if _G.FullBrightEnabled ~= LatestValue then
+ if not _G.FullBrightEnabled then
+ game:GetService("Lighting").Яркость = _G.NormalLightingSettings.Яркость
+ game:GetService("Освещение").ClockTime = _G.NormalLightingSettings.ClockTime
+ game:GetService("Lighting").FogEnd = _G.NormalLightingSettings.FogEnd
+ game:GetService("Lighting").GlobalShadows = _G.NormalLightingSettings.GlobalShadows
+ game:GetService("Lighting").Ambient = _G.NormalLightingSettings.Ambient
+ else
+ game:GetService("Lighting").Яркость = 1
+ game:GetService("Освещение").ClockTime = 12
+ game:GetService("Lighting").FogEnd = 786543
+ игра:GetService("Освещение").GlobalShadows = false
+ game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+ end
+ LatestValue = not LatestValue
+ end
+ end
+ end)
+конец
+
+_G.FullBrightExecuted = true
+_G.FullBrightEnabled = not _G.FullBrightEnabled
+ end,
+})
+
+local Section = Tab:CreateSection("u can get from infinity Yeild speed,noclip")
+
+local Button = Tab:CreateButton({
+ Name = "Infinity yeild ♾️",
+ Callback = function()
+ loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+ конец,
+})
+
+
+
+
+local Tab = Window:CreateTab("Visual") -- Title, Image
+
+local Section = Tab:CreateSection("Esp")
+
+local Button = Tab:CreateButton({
+ Name = "Esp Doors",
+ Callback = function()
+ -- Made by mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'Door' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Door" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ local hue = tick() % 5 / 5 
+ local color = Color3.fromHSV(hue, 1, 1)
+ TextLabel.TextColor3 = color
+ end
+
+ -- Продолжаем обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Button = Tab:CreateButton({
+ Name = "Safe Locker Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'Locker' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Сейф" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(0,255,0)
+ TextLabel.TextColor3 = color
+ end
+
+ — Продолжайте обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Button = Tab:CreateButton({
+ Name = "Rush Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'Rush' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Rush" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для наглядности
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(255,0,0)
+ TextLabel.TextColor3 = color
+ end
+
+ — Продолжайте обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Button = Tab:CreateButton({
+ Name = "Decoy Locker Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'decoyLocker' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Decoy Locker" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(255,0,0)
+ TextLabel.TextColor3 = color
+ end
+
+ — Продолжайте обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ end,
+})
+
+local Button = Tab:CreateButton({
+ Name = "Oxygen Tanks Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('MeshPart') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'OxygenTank' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Parent
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Кислородный баллон" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(0,255,255)
+ TextLabel.TextColor3 = color
+ end
+
+ — Продолжайте обновлять цвета без проверки поворота
+ RunService.Шаг визуализации: подключение (обновить цвета)
+
+ Выделенные объекты [obj] = true 
+конец 
+конец 
+конец 
+конец
+
+-- Функция для пакетной обработки всех существующих объектов 
+локальная функция handleExistingObjects()
+ для _, obj в ipairs(игра.Рабочее пространство: GetDescendants()) выполнить 
+ handleNewObject(obj)
+ end 
+завершить
+
+Игра.Рабочее пространство.Добавлено дочернее: Подключение (функция (дочерняя)
+ handleNewObject(дочерний)
+end)
+
+локальная последняя проверка = 0
+RunService.Сердцебиение: Подключение (функция (deltaTime)
+ послЕдняя проверка = послЕдняя проверка + deltaTime 
+ если последняя проверка >= 0.5, то 
+ handleExistingObjects()
+ послЕдняя проверка = 0 
+конец 
+end)
+
+handleExistingObjects()
+ end, 
+})
+
+локальная кнопка = вкладка:createButton({
+ Имя = "Ram Esp", 
+ Обратный вызов = функция()
+ -- Сделано mrpopcat14
+локальный RunService = игра: GetService("RunService")
+локальный CollectionService = игра: GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов 
+локальные выделенные объекты = {}
+
+локальная функция handleNewObject(obj)
+ если obj:IsA('Часть') и obj.Родительский объект и obj.Родительский элемент: IsA ('Модель') и obj.Родительский элемент.Затем Name == 'Ram'
+ -- Проверьте, не выделен ли объект еще 
+ если не выделен Objects[obj], то
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Ram" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(255,165,0)
+ TextLabel.TextColor3 = color
+ end
+
+ -- Продолжайте обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Section = Tab:CreateSection("Door 150")
+local Button = Tab:CreateButton({
+ Name = "Levers Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'Lever' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Parent
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Lever" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(255,255,255)
+ TextLabel.TextColor3 = color
+ end
+
+ -- Продолжаем обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Button = Tab:CreateButton({
+ Name = "The Watcher Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('Part') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'WanderWatcher' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ если не obj.Родительский элемент: FindFirstChildOfClass('BillboardGui'), то 
+ локальный BillboardGui = Instance.new('BillboardGui')
+ локальная текстовая метка = Instance.new('ТексТовая метка')
+
+ BillboardGui.Parent = obj.Parent
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Размер = UDim2.новый(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.новый (0, 2, 0)
+
+ textLabel.Родительский элемент = BillboardGui
+ textLabel.Прозрачность фона = 1
+ textLabel.Размер = UDim2.новый (1, 0, 1, 0)
+ textLabel.Text = "Наблюдатель" - отображать текст
+ textLabel.TextScaled = true
+ textLabel.TextStrokeTransparency = 0,5 - обводка текста для наглядности
+
+ -- Удалена начальная проверка поворота и связанная с ней логика
+
+ локальная функция UpdateColors()
+ 
+ локальный цвет = Color3.fromRGB(255,0,0)
+ textLabel.TextColor3 = color 
+ конец
+
+ -- Продолжать обновлять цвета без проверки поворота
+ Запустите службу.Шаг рендеринга: подключение (обновить цвета)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ end,
+})
+
+local Section = Tab:CreateSection("Power Offset")
+
+local Button = Tab:CreateButton({
+ Name = "Lights Esp",
+ Callback = function()
+ -- Сделано mrpopcat14
+local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
+
+-- Таблица для отслеживания выделенных объектов
+local highlightedObjects = {}
+
+local function handleNewObject(obj)
+ if obj:IsA('MeshPart') and obj.Parent and obj.Parent:IsA('Model') and obj.Родитель.Name == 'Outer' then
+ -- Проверить, не выделен ли уже объект
+ if not highlightedObjects[obj] then
+ if not obj.Parent:FindFirstChildOfClass('BillboardGui') then
+ local BillboardGui = Instance.new('BillboardGui')
+ local TextLabel = Instance.new('TextLabel')
+
+ BillboardGui.Parent = obj.Родитель
+ BillboardGui.AlwaysOnTop = true
+ BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+ BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+ TextLabel.Parent = BillboardGui
+ TextLabel.BackgroundTransparency = 1
+ TextLabel.Size = UDim2.new(1, 0, 1, 0)
+ TextLabel.Text = "Light" -- Отображение текста
+ TextLabel.TextScaled = true
+ TextLabel.TextStrokeTransparency = 0.5 -- Обводка текста для видимости
+
+ -- Убрана проверка начального поворота и связанная с ней логика
+
+ local function updateColors()
+ 
+ local color = Color3.fromRGB(255,255,255)
+ TextLabel.TextColor3 = color
+ end
+
+ -- Продолжаем обновлять цвета без проверки поворота
+ RunService.RenderStepped:Connect(updateColors)
+
+ highlightedObjects[obj] = true
+ end
+ end
+ end
+end
+
+-- Функция для пакетной обработки всех существующих объектов
+local function handleExistingObjects()
+ for _, obj in ipairs(game.Workspace:GetDescendants()) do
+ handleNewObject(obj)
+ end
+end
+
+игра.Рабочее место.ChildAdded:Connect(function(child)
+ handleNewObject(child)
+end)
+
+local lastCheck = 0
+RunService.Heartbeat:Connect(function(deltaTime)
+ lastCheck = lastCheck + deltaTime
+ if lastCheck >= 0.5 then
+ handleExistingObjects()
+ lastCheck = 0
+ end
+end)
+
+handleExistingObjects()
+ конец,
+})
+
+
+local Label = Tab:CreateLabel("Скоро появятся новые функции", Color3.fromRGB(255, 255, 255), false) -- Заголовок, значок, цвет, игнорирование темы
